@@ -1,0 +1,8 @@
+{
+  "endOfLine": "auto",
+  "htmlWhitespaceSensitivity": "strict",
+  "proseWrap": "never",
+  "semi": true,
+  "singleQuote": false,
+  "tabWidth": 2
+}

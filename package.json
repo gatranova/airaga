@@ -1,0 +1,35 @@
+{
+  "name": "airaga",
+  "version": "1.0.0",
+  "author": "Rafi Abiyyu Airlangga",
+  "description": "An opinionated text game written in TypeScript.",
+  "license": "MIT",
+  "type": "module",
+  "devDependencies": {
+    "@eslint/js": "^9.25.1",
+    "@types/bun": "latest",
+    "@types/uuid": "^10.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.31.0",
+    "@typescript-eslint/parser": "^8.31.0",
+    "dedent": "^1.5.3",
+    "eslint": "^9.25.1",
+    "fs": "^0.0.1-security",
+    "jiti": "^2.4.2",
+    "jsdom": "^26.1.0",
+    "path": "^0.12.7",
+    "prettier": "^3.5.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3",
+    "uuid": "^11.1.0",
+    "vitest": "^3.1.2"
+  },
+  "bin": {
+    "airaga": "node dist\\src\\index.js"
+  },
+  "scripts": {
+    "build": "tsc --build && tsc-alias",
+    "lint": "eslint . --fix --ext .ts",
+    "prettier": "prettier --write .",
+    "test": "vitest run"
+  }
+}
