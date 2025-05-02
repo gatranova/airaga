@@ -21,66 +21,47 @@
  * 2025
  */
 
-import type { CssVariable, Fonts } from "@types/styles";
+import type { Fonts } from "@/types/styles";
 
+/**
+ * @namespace @airaga/fonts
+ * 
+ * How to use?
+ * The concept of @airaga/fonts is similar to Next.js.
+ * Example:
+ * const fonts = Plus_Jakarta_Sans({
+ *   subsets: ["latin"],
+ *   weight: ["400", "500", "600", "700", "800"],
+ * });
+ */
 declare module "@airaga/fonts" {
-  export declare function Roboto(options?: Partial<Fonts> & {
-    variable?: CssVariable;
-  }): string | (Fonts & { variable?: CssVariable });
+  export declare function Roboto(options?: Partial<Fonts>): string | Fonts;
 
-  export declare function Tagesschrift(options?: Partial<Fonts> & {
-    variable?: CssVariable;
-  }): string | (Fonts & { variable?: CssVariable });
+  export declare function Tagesschrift(options?: Partial<Fonts>): string | Fonts;
 
-  export declare function Coral_Pixels(options?: Partial<Fonts> & {
-    variable?: CssVariable;
-  }): string | (Fonts & { variable?: CssVariable });
+  export declare function Coral_Pixels(options?: Partial<Fonts>): string | Fonts;
 
-  export declare function Cal_Sans(options?: Partial<Fonts> & {
-    variable?: CssVariable;
-  }): string | (Fonts & { variable?: CssVariable });
+  export declare function Cal_Sans(options?: Partial<Fonts>): string | Fonts;
 
-  export declare function Open_Sans(options?: Partial<Fonts> & {
-    variable?: CssVariable;
-  }): string | (Fonts & { variable?: CssVariable });
+  export declare function Open_Sans(options?: Partial<Fonts>): string | Fonts;
 
-  export declare function Noto_Sans_Japanese(options?: Partial<Fonts> & {
-    variable?: CssVariable;
-  }): string | (Fonts & { variable?: CssVariable });
+  export declare function Noto_Sans_Japanese(options?: Partial<Fonts>): string | Fonts;
 
-  export declare function Sansation(options?: Partial<Fonts> & {
-    variable?: CssVariable;
-  }): string | (Fonts & { variable?: CssVariable });
+  export declare function Sansation(options?: Partial<Fonts>): string | Fonts;
 
-  export declare function Montserrat(options?: Partial<Fonts> & {
-    variable?: CssVariable;
-  }): string | (Fonts & { variable?: CssVariable });
+  export declare function Montserrat(options?: Partial<Fonts>): string | Fonts;
 
-  export declare function Inter(options?: Partial<Fonts> & {
-    variable?: CssVariable;
-  }): string | (Fonts & { variable?: CssVariable });
+  export declare function Inter(options?: Partial<Fonts>): string | Fonts;
 
-  export declare function Comic_Relief(options?: Partial<Fonts> & {
-    variable?: CssVariable;
-  }): string | (Fonts & { variable?: CssVariable });
+  export declare function Comic_Relief(options?: Partial<Fonts>): string | Fonts;
 
-  export declare function Poppins(options?: Partial<Fonts> & {
-    variable?: CssVariable;
-  }): string | (Fonts & { variable?: CssVariable });
+  export declare function Poppins(options?: Partial<Fonts>): string | Fonts;
 
-  export declare function Lato(options?: Partial<Fonts> & {
-    variable?: CssVariable;
-  }): string | (Fonts & { variable?: CssVariable });
+  export declare function Lato(options?: Partial<Fonts>): string | Fonts;
 
-  export declare function Times_New_Roman(options?: Partial<Fonts> & {
-    variable?: CssVariable;
-  }): string | (Fonts & { variable?: CssVariable });
+  export declare function Times_New_Roman(options?: Partial<Fonts>): string | Fonts;
 
-  export declare function Plus_Jakarta_Sans(options?: Partial<Fonts> & {
-    variable?: CssVariable;
-  }): string | (Fonts & { variable?: CssVariable });
+  export declare function Plus_Jakarta_Sans(options?: Partial<Fonts>): string | Fonts;
 
-  export declare function Playfair_Display(options?: Partial<Fonts> & {
-    variable?: CssVariable;
-  }): string | (Fonts & { variable?: CssVariable });
+  export declare function Playfair_Display(options?: Partial<Fonts>): string | Fonts;
 }

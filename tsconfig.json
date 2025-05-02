@@ -6,9 +6,9 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "lib": ["ESNext"],
-    "module": "Node16",
+    "module": "Node18",
     "moduleDetection": "force",
-    "moduleResolution": "node16",
+    "moduleResolution": "nodenext",
     "noFallthroughCasesInSwitch": true,
     "noPropertyAccessFromIndexSignature": false,
     "noUncheckedIndexedAccess": true,
@@ -21,9 +21,12 @@
     "sourceMap": true,
     "strict": true,
     "skipLibCheck": true,
-    "target": "ES2022",
+    "target": "ES2020",
     "verbatimModuleSyntax": true,
   },
   "exclude": ["dist", "node_modules"],
   "include": ["./**/*.ts", "./**/*.d.ts"],
+  "ts-node": {
+    "esm": true
+  }
 }

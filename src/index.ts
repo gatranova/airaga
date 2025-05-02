@@ -9,4 +9,4 @@
  * 1.0.0
  */
 
-import "@/commands/cli.js";
+import "@/commands/cli";

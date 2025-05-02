@@ -20,7 +20,7 @@ export const generateIFID = (): string => {
   return uuidv4();
 };
 
-export const newGame = async (gameName: string): Promise<void> => {
+export const newGame = async (gameName: string, options: { database: string | null } = { database: null }): Promise<void> => {
   const folder = gameName === "." ? process.cwd() : join(process.cwd(), gameName);
 
   if (gameName !== "." && existsSync(folder)) {
@@ -43,9 +43,8 @@ export const newGame = async (gameName: string): Promise<void> => {
   };
 
   // Public assets folder
-  mkdirSync(join(folder, "public", "fonts"), { recursive: true });
-  mkdirSync(join(folder, "public", "img"), { recursive: true });
-  writeFileSync(join(folder, "public", "img", "favicon.ico"), "");
+  mkdirSync(join(folder, "public"), { recursive: true });
+  writeFileSync(join(folder, "public", "favicon.ico"), "");
 
   /**
    * @description
@@ -123,8 +122,7 @@ export const newGame = async (gameName: string): Promise<void> => {
       ## 🏗 Project Structure
 
       - \`public\`
-        - \`fonts\`
-        - \`img\`
+        - \`favicon.ico\`
       - \`src\`
         - \`scene\`
           - \`start.arg\`
@@ -184,5 +182,10 @@ export const newGame = async (gameName: string): Promise<void> => {
     `,
   ));
 
-  console.log(`✅ Project "${gameName}" created successfully!`);
+  if (options.database != null) {
+    console.log("🗄️ Configuring database integration...");
+    // TODO: Generate db config, schema, dsb
+  }
+
+  console.log(`✅  Project "${gameName}" created successfully!`);
 };

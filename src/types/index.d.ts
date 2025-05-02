@@ -22,6 +22,18 @@
  * 2025
  */
 
+/**
+ * @name JsxElement
+ * 
+ * @description
+ * JSX Element type definition.
+ */
+interface JsxElement {
+  type: string;
+  props?: Record<string, unknown>;
+  children?: JsxElement[] | string;
+}
+
 declare module "airaga" {
   export interface Config {
     /**
@@ -43,7 +55,7 @@ declare module "airaga" {
      * Game genres. Can be a single string or list of tags.
      * Example: "adventure", ["mystery", "sci-fi"]
      */
-    genre: string | string[] | null;
+    genre?: string | string[] | null;
 
     /**
      * Current version of the game.
@@ -106,5 +118,17 @@ declare module "airaga" {
      * Whether this scene is skippable (used in cutscenes).
      */
     skippable?: boolean;
+
+    /**
+     * Break line element.
+     * It looks like <br /> in HTML.
+     */
+    br?: JsxElement;
+
+    /**
+     * Horizontal rule element.
+     * It looks like <hr /> in HTML.
+     */
+    hr?: JsxElement;
   }
 }
