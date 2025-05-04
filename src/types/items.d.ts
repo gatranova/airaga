@@ -13,7 +13,7 @@
 
 
 declare module "@airaga/items" {
-  export type ItemID = string;
+  type ItemID = string;
   
   export interface Item {
     /**

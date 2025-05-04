@@ -1,5 +1,3 @@
-/* eslint-disable no-undef */
-
 /**
  * @module build
  * 
@@ -9,11 +7,4 @@
  * 
  */
 
-import { parseArgFile } from "@/core/parser.js";
-import { readFileSync } from "fs";
-import { join } from "path";
-
-const filePath = join(process.cwd(), "src", "scene", "start.arg");
-const parsed = parseArgFile(readFileSync(filePath, "utf-8"));
-
-console.log(parsed); // Temporary to check if parsing works.
+export const buildForProduction = (): void => {};

@@ -1,19 +1,25 @@
+/**
+ * @param content 
+ * @returns {Array<AiragaElement>}
+ *
+ * @description
+ * Parse scene content into an array of Airaga elements.
+ */
+
 import type { AiragaElement } from "airaga";
 
-export const parseScene = (content: string): string[] => {
-  const sceneRegex = /<scene>([\s\S]*?)<\/scene>/gi;
-  const scenes: string[] = [];
+// prettier-ignore
+export const parseScene = (content: string): Array<AiragaElement> => {
+  const tags = /<scene.*?>([\s\S]*?)<\/scene>/gi;
+  const scenes: AiragaElement[] = [];
   let match: RegExpExecArray | null;
 
-  while((match = sceneRegex.exec(content)) !== null) scenes.push(match[1]!.trim());
+  while ((match = tags.exec(content)) !== null) {
+    const content = match[1]!.trim() || "";
+    const id = /id="([^"]+)"/.exec(match[0]);
+    const tags = /tags="([^"]+)"/.exec(match[0]);
+    scenes.push({ scene: content, id: id ? id[1] : undefined, tags: tags ? tags[1]!.split(",") : [] });
+  }
+
   return scenes;
-}
-
-export const parseArgFile = (content: string): AiragaElement => {
-  const scenes = parseScene(content);
-
-  return {
-    menu: {},
-    scene: scenes.join("\n\n---\n\n"),
-  };
 }

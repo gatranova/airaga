@@ -23,15 +23,27 @@
  */
 
 /**
- * @name JsxElement
+ * @name Choice
+ * 
+ * @description
+ * Choice type definition.
+ */
+interface Choice {
+  label: string;
+  next: string;
+  condition?: string;
+}
+
+/**
+ * @name VirtualElement
  * 
  * @description
  * JSX Element type definition.
  */
-interface JsxElement {
+interface VirtualElement {
   type: string;
-  props?: Record<string, unknown>;
-  children?: JsxElement[] | string;
+  props?: Record<string, string | number | boolean | unknown>;
+  children?: VirtualElement[] | string;
 }
 
 declare module "airaga" {
@@ -39,7 +51,7 @@ declare module "airaga" {
     /**
      * Unique identifier of the game (UUID v4).
      */
-    ifid: string;
+    ifid: string | null;
 
     /**
      * Name or title of the game.
@@ -50,12 +62,6 @@ declare module "airaga" {
      * Short description of the game.
      */
     description: string;
-
-    /**
-     * Game genres. Can be a single string or list of tags.
-     * Example: "adventure", ["mystery", "sci-fi"]
-     */
-    genre?: string | string[] | null;
 
     /**
      * Current version of the game.
@@ -77,42 +83,73 @@ declare module "airaga" {
      * Whether the game supports autosave.
      */
     autosave?: boolean;
+
+    /**
+     * Theme of the game (light, dark, system).
+     * Default: "dark"
+     */
+    theme?: "light" | "dark" | "system";
+
+    /**
+     * ID of the starting scene.
+     * Default: "start"
+     */
+    startScene?: string;
   }
 
   export interface AiragaElement {
     /**
+     * @description
      * Game menu definition, with option key → label.
-     * Example: { "new": "Start New Game", "continue": "Continue" }
+     * 
+     * @example
+     * <menu new="Start New Game" continue="Continue" />
      */
-    menu: Partial<Record<string, string>>;
+    menu?: Partial<Record<string, string>>;
 
     /**
+     * @description
      * Scene content. Can include markup/tags or be pure text.
+     *
+     * @example
+     * <scene>
+     *   Hello, world!
+     * </scene>
      */
-    scene: string;
+    scene?: string;
 
     /**
+     * @description
      * Tags associated with the scene (for filtering or branching).
      */
     tags?: string[];
 
     /**
+     * @description
      * ID of the scene (useful for jumps, branching).
      * This is used as a reference between scenes.
      * For example, if you want the next: “intro” from another scene.
      */
-    id?: string;
+    id?: string | number;
 
     /**
+     * @description
      * Optional choices leading to other scenes.
-     * Example: [{ label: "Go left", next: "scene2" }]
+     *
+     * @example
+     * <choices={[{ label: "Go left", next: "scene2" }]} />
      */
-    choices?: Array<{ label: string; next: string }>;
+    choices?: Choice[];
 
     /**
+     * @description
      * Optional background music or sound effect cue.
+     * It looks like <audio /> in HTML.
+     *
+     * @example
+     * <audio src="audio.mp3" />
      */
-    audio?: string;
+    audio?: VirtualElement;
 
     /**
      * Whether this scene is skippable (used in cutscenes).
@@ -123,12 +160,29 @@ declare module "airaga" {
      * Break line element.
      * It looks like <br /> in HTML.
      */
-    br?: JsxElement;
+    br?: VirtualElement;
 
     /**
      * Horizontal rule element.
      * It looks like <hr /> in HTML.
      */
-    hr?: JsxElement;
+    hr?: VirtualElement;
+
+    /**
+     * Image element.
+     * It looks like <img /> in HTML.
+     */
+    img?: VirtualElement;
+
+    /**
+     * Delay in milliseconds before the scene is entered.
+     */
+    delay?: number;
+
+    /**
+     * Optional onEnter function.
+     * This function will be called when the scene is entered.
+     */
+    onEnter?: () => void;
   }
 }

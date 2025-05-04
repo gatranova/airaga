@@ -7,20 +7,14 @@
  * This module provides functions for creating a new Airaga game project.
  * It generates an initial configuration object and creates necessary folders for the game project.
  * 
- * @method generateIFID
  * @method newGame
  */
 
 import { existsSync, mkdirSync, writeFileSync } from "fs";
 import { join } from "path";
-import { v4 as uuidv4 } from "uuid";
 import dedent from "dedent";
 
-export const generateIFID = (): string => {
-  return uuidv4();
-};
-
-export const newGame = async (gameName: string, options: { database: string | null } = { database: null }): Promise<void> => {
+export const newGame = async (gameName: string): Promise<void> => {
   const folder = gameName === "." ? process.cwd() : join(process.cwd(), gameName);
 
   if (gameName !== "." && existsSync(folder)) {
@@ -51,7 +45,7 @@ export const newGame = async (gameName: string, options: { database: string | nu
    * Create a scene folder to store scenes.
    */
   mkdirSync(join(folder, "src", "scene"), { recursive: true });
-  writeFileSync(join(folder, "src", "scene", "index.arg"), dedent(
+  writeFileSync(join(folder, "src", "scene", "prolog.arg"), dedent(
     `
       <scene>
         This is the 2nd scene from your game.
@@ -63,27 +57,30 @@ export const newGame = async (gameName: string, options: { database: string | nu
    * @description
    * Create an item folder to store items.
    */
-  mkdirSync(join(folder, "src", "item"), { recursive: true });
-  writeFileSync(join(folder, "src", "item", "index.arg"), dedent(
+  mkdirSync(join(folder, "src", "items"), { recursive: true });
+  writeFileSync(join(folder, "src", "items", "character.arg"), dedent(
     `
-      export const items: Items = {};
+      import type { Item } from "@airaga/items";
+
+      export const item: Item = {
+        id: "item",
+        name: "Item",
+        description: "An item",
+      }
     `,
   ));
 
   writeFileSync(join(folder, "src", "start.arg"), dedent(
     `
-      import { Plus_Jakarta_Sans } from "@airaga/fonts";
+      Welcome to Airaga!
 
-      export const config = ${JSON.stringify(init, null, 2)};
+      Airaga is an opinionated text game engine built with TypeScript.
+      It is designed to simplify and accelerate the development of interactive fiction
+      by providing a structured scene-based architecture.
 
-      export const fonts = Plus_Jakarta_Sans({
-        subsets: ["latin"],
-        weight: ["400", "500", "600", "700", "800"],
-      });
-
-      <scene id="intro">
-        Welcome to ${gameName}!
-      </scene>
+      <menu>
+        Start the game
+      </menu>
     `,
   ));
 
@@ -93,7 +90,7 @@ export const newGame = async (gameName: string, options: { database: string | nu
       import type { Config } from "airaga";
 
       export const config: Config = {
-        ifid: "${init.ifid}",
+        ifid: ${null},
         name: "${init.name}",
         description: "${init.description}",
         version: "${init.version}",
@@ -124,12 +121,13 @@ export const newGame = async (gameName: string, options: { database: string | nu
       - \`public\`
         - \`favicon.ico\`
       - \`src\`
-        - \`scene\`
-          - \`start.arg\`
         - \`items\`
           - \`character.arg\`
-      - \`airaga.config.ts\`
+        - \`scene\`
+          - \`prolog.arg\`
+        - \`start.arg\`
       - \`.gitignore\`
+      - \`airaga.config.ts\`
       - \`README.md\`
 
       ## 🚀 Getting Started
@@ -181,11 +179,6 @@ export const newGame = async (gameName: string, options: { database: string | nu
       This project is licensed under the [MIT License](https://github.com/a6iyyu/airaga/blob/main/LICENSE).
     `,
   ));
-
-  if (options.database != null) {
-    console.log("🗄️ Configuring database integration...");
-    // TODO: Generate db config, schema, dsb
-  }
 
   console.log(`✅  Project "${gameName}" created successfully!`);
 };
