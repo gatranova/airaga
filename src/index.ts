@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 /**
  * @description
  * This is an endpoint for Airaga project.
