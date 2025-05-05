@@ -23,7 +23,7 @@ export const generateIFID = (): string => {
   // Declare a variable to find the config file.
   const file = fs.readFileSync("./airaga.config.ts", "utf-8");
   const uuid = generateUUIDv4();
-  const config = file.replace(/ifid:\s*null/g, `ifid: '${uuid}'`);
+  const config = file.replace(/ifid:\s*null/g, `ifid: "${uuid}"`);
 
   // Overwrite the config file.
   fs.writeFileSync("./airaga.config.ts", config, "utf-8");

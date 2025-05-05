@@ -42,7 +42,7 @@ interface Choice {
  */
 interface VirtualElement {
   type: string;
-  props?: Record<string, string | number | boolean | unknown>;
+  props?: Record<string, unknown>;
   children?: VirtualElement[] | string;
 }
 
@@ -71,7 +71,7 @@ declare module "airaga" {
     /**
      * Author(s) of the game.
      */
-    author: string | string[] | Array<string>;
+    author: string | string[];
 
     /**
      * Supported language(s) for localization.
@@ -120,12 +120,6 @@ declare module "airaga" {
 
     /**
      * @description
-     * Tags associated with the scene (for filtering or branching).
-     */
-    tags?: string[];
-
-    /**
-     * @description
      * ID of the scene (useful for jumps, branching).
      * This is used as a reference between scenes.
      * For example, if you want the next: “intro” from another scene.
@@ -152,11 +146,6 @@ declare module "airaga" {
     audio?: VirtualElement;
 
     /**
-     * Whether this scene is skippable (used in cutscenes).
-     */
-    skippable?: boolean;
-
-    /**
      * Break line element.
      * It looks like <br /> in HTML.
      */
@@ -173,11 +162,6 @@ declare module "airaga" {
      * It looks like <img /> in HTML.
      */
     img?: VirtualElement;
-
-    /**
-     * Delay in milliseconds before the scene is entered.
-     */
-    delay?: number;
 
     /**
      * Optional onEnter function.

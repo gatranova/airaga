@@ -12,6 +12,7 @@
 
 import { existsSync, mkdirSync, writeFileSync } from "fs";
 import { join } from "path";
+import { Version } from "@/core/version.js";
 import dedent from "dedent";
 
 export const newGame = async (gameName: string): Promise<void> => {
@@ -72,15 +73,15 @@ export const newGame = async (gameName: string): Promise<void> => {
 
   writeFileSync(join(folder, "src", "start.arg"), dedent(
     `
-      Welcome to Airaga!
+      <scene>
+        Welcome to Airaga!
 
-      Airaga is an opinionated text game engine built with TypeScript.
-      It is designed to simplify and accelerate the development of interactive fiction
-      by providing a structured scene-based architecture.
-
-      <menu>
-        Start the game
-      </menu>
+        Airaga is an opinionated text game engine built with TypeScript.
+        It is designed to simplify and accelerate the development of interactive fiction
+        by providing a structured scene-based architecture.
+        
+        <menu new="Start New Game" continue="Continue" />
+      </scene>
     `,
   ));
 
@@ -101,6 +102,30 @@ export const newGame = async (gameName: string): Promise<void> => {
 
   // Write .gitignore
   writeFileSync(join(folder, ".gitignore"), `/node_modules`);
+
+  // Write package.json
+  const hasPackageJson = existsSync(join(folder, "package.json"));
+  if (!hasPackageJson) {
+    const writePackageJson = {
+      name: gameName === "." ? "airaga-game" : gameName,
+      version: "1.0.0",
+      main: "src/start.arg",
+      type: "module",
+      scripts: {
+        build: "airaga build",
+        dev: "airaga dev",
+      },
+      devDependencies: {
+        airaga: `^${Version}`,
+        "@types/node": "^18.11.18",
+        typescript: "^5.0.4",
+      },
+      license: "MIT",
+      types: "airaga.config.ts",
+    };
+
+    writeFileSync(join(folder, "package.json"), JSON.stringify(writePackageJson, null, 2));
+  }
 
   // Write README.md
   writeFileSync(join(folder, "README.md"), dedent(

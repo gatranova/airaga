@@ -24,12 +24,13 @@
     "prettier": "^3.5.3",
     "prompts": "^2.4.2",
     "ts-node": "^10.9.2",
+    "tsc-alias": "^1.8.15",
     "typescript": "^5.8.3",
     "uuid": "^11.1.0",
     "vitest": "^3.1.2"
   },
   "bin": {
-    "airaga": "node dist\\src\\commands\\cli.js"
+    "airaga": "node dist\\src\\index.js"
   },
   "scripts": {
     "build": "tsc --build && tsc-alias",
