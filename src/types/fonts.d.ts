@@ -2,7 +2,7 @@
 
 /**
  * @module @airaga/fonts
- * 
+ *
  * @description
  * `@airaga/fonts` is an extension module for Airaga that allows you to easily
  * import and manage web fonts, primarily sourced from Google Fonts.
@@ -28,7 +28,7 @@ import type { Fonts } from "@/types/styles.js";
 
 /**
  * @namespace @airaga/fonts
- * 
+ *
  * How to use?
  * The concept of @airaga/fonts is similar to next/font/google.
  * Example:

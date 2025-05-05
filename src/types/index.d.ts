@@ -1,30 +1,30 @@
 /**
  * @module airaga
- * 
+ *
  * @description
  * Airaga is an opinionated text game engine built with TypeScript.
  * It is designed to simplify and accelerate the development of interactive fiction
  * by providing a structured scene-based architecture.
- * 
+ *
  * @author
  * Rafi Abiyyu Airlangga
- * 
+ *
  * @license
  * MIT
- * 
+ *
  * @repository
  * https://github.com/a6iyyu/airaga
- * 
+ *
  * @version
  * 1.0.0
- * 
+ *
  * @since
  * 2025
  */
 
 /**
  * @name Choice
- * 
+ *
  * @description
  * Choice type definition.
  */
@@ -36,13 +36,13 @@ interface Choice {
 
 /**
  * @name VirtualElement
- * 
+ *
  * @description
  * JSX Element type definition.
  */
 interface VirtualElement {
   type: string;
-  props?: Record<string, unknown>;
+  props?: Record<string, string | unknown>;
   children?: VirtualElement[] | string;
 }
 
@@ -101,11 +101,11 @@ declare module "airaga" {
     /**
      * @description
      * Game menu definition, with option key → label.
-     * 
+     *
      * @example
      * <menu new="Start New Game" continue="Continue" />
      */
-    menu?: Partial<Record<string, string>>;
+    menu?: Array<Record<string, string>>;
 
     /**
      * @description

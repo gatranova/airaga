@@ -1,26 +1,28 @@
-/* eslint-disable no-undef */
-
 /**
  * @module commands/new
- * 
+ *
  * @description
  * This module provides functions for creating a new Airaga game project.
  * It generates an initial configuration object and creates necessary folders for the game project.
- * 
+ *
  * @method newGame
  */
 
-import { existsSync, mkdirSync, writeFileSync } from "fs";
+import { Buffer } from "buffer"
+import { error, log } from "console";
+import { existsSync, mkdirSync, writeFile, writeFileSync } from "fs";
 import { join } from "path";
+import { cwd, exit } from "process";
 import { Version } from "@/core/version.js";
+import { base64 } from "@/constants/base64.js";
 import dedent from "dedent";
 
 export const newGame = async (gameName: string): Promise<void> => {
-  const folder = gameName === "." ? process.cwd() : join(process.cwd(), gameName);
+  const folder = gameName === "." ? cwd() : join(cwd(), gameName);
 
   if (gameName !== "." && existsSync(folder)) {
-    console.error(`❌ Folder "${gameName}" already exists.`);
-    process.exit(1);
+    error(`❌ Folder "${gameName}" already exists.`);
+    exit(1);
   }
 
   if (gameName !== ".") mkdirSync(folder);
@@ -38,15 +40,20 @@ export const newGame = async (gameName: string): Promise<void> => {
   };
 
   // Public assets folder
+  const img = `data:image/x-icon;base64,${base64}`.split(",")[1];
+  if (img == null) throw new Error("Invalid base64 image, can't create favicon.");
+
   mkdirSync(join(folder, "public"), { recursive: true });
-  writeFileSync(join(folder, "public", "favicon.ico"), "");
+  writeFile(join(folder, "public", "favicon.ico"), Buffer.from(img, "base64"), (error) => {
+    if (error) throw error;
+  });
 
   /**
    * @description
    * Create a scene folder to store scenes.
    */
   mkdirSync(join(folder, "src", "scene"), { recursive: true });
-  writeFileSync(join(folder, "src", "scene", "prolog.arg"), dedent(
+  writeFileSync(join(folder, "src", "scene", "1.arg"), dedent(
     `
       <scene>
         This is the 2nd scene from your game.
@@ -149,10 +156,11 @@ export const newGame = async (gameName: string): Promise<void> => {
         - \`items\`
           - \`character.arg\`
         - \`scene\`
-          - \`prolog.arg\`
+          - \`1.arg\`
         - \`start.arg\`
       - \`.gitignore\`
       - \`airaga.config.ts\`
+      - \`package.json\`
       - \`README.md\`
 
       ## 🚀 Getting Started
@@ -205,5 +213,5 @@ export const newGame = async (gameName: string): Promise<void> => {
     `,
   ));
 
-  console.log(`✅  Project "${gameName}" created successfully!`);
+  log(`✅  Project "${gameName}" created successfully!`);
 };

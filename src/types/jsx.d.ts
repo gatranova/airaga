@@ -1,5 +1,12 @@
 /* eslint-disable no-unused-vars */
 
+/**
+ * @module jsx
+ *
+ * @description
+ * JSX types for Airaga.
+ */
+
 import type { AiragaElement } from "airaga";
 
 declare global {
@@ -12,7 +19,7 @@ declare global {
       audio: {
         src: string;
         controls?: boolean;
-      }
+      };
       img: {
         src: string;
         alt?: string;

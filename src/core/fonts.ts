@@ -1,14 +1,14 @@
-/* eslint-disable no-undef */
-
 /**
  * @module core/fonts
  * @returns {Promise<{ css: string; url: string } | void>}
- * 
+ *
  * @description
  * This module provides functions for fetching web fonts from Google Fonts.
  * It returns the CSS code and the URL of the font files.
  */
 
+import { error, warn } from "console";
+import { exit } from "process";
 import type { Fonts } from "@/types/styles.js";
 import axios from "axios";
 
@@ -22,10 +22,10 @@ export const getFontsFromGoogle = async (font: string, options: Partial<Fonts>):
     const css = (await axios.get(url)).data as string;
     const fontUrls = [...css.matchAll(/url\((.*?)\)/g)].map((match) => match[1]);
 
-    if (fontUrls.length === 0) return console.warn("⚠️  No font files found in the response.");
+    if (fontUrls.length === 0) return warn("⚠️  No font files found in the response.");
     return { css, url };
-  } catch (error) {
-    console.error(`❌ Can't get fonts from Google: ${error}`);
-    process.exit(1);
+  } catch (err) {
+    error(`❌ Can't get fonts from Google: ${err}`);
+    exit(1);
   }
 };

@@ -11,10 +11,9 @@
  * Rafi Abiyyu Airlangga
  */
 
-
 declare module "@airaga/items" {
   type ItemID = string;
-  
+
   export interface Item {
     /**
      * Unique identifier for the item.

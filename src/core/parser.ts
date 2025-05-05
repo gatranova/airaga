@@ -1,76 +1,80 @@
 import type { AiragaElement } from "airaga";
 
 /**
- * @param content 
+ * @param content
  * @returns {Record<string, string>}
  *
  * @description
  * This function takes in a string of HTML content and returns an object of menu options.
  */
-const parseMenu = (content: string): Record<string, string> => {
-  const menuMatch = /<menu([^>]+)>(.*?)<\/menu>/gi;
-  const menus: Record<string, string> = {};
-  let menu: RegExpExecArray | null;
+const parseMenu = (content: string): Array<Record<string, string>> => {
+  const menuTag = /<menu([^>]*)\/?>/gi;
+  const menus: Array<Record<string, string>> = [];
+  let match: RegExpExecArray | null;
 
-  while ((menu = menuMatch.exec(content)) !== null) {
-    const menuContent = menu[1]!.trim() || "";
-    const menuOptions = menuContent
-      .split(" ")
-      .map((option: string) => option.split("="))
-      .reduce((acc: Record<string, string>, [key = "", value = ""]) => {
-        acc[key] = value.replace(/"/g, "") as string;
-        return acc;
-      }, {} as Record<string, string>);
+  while ((match = menuTag.exec(content)) !== null) {
+    if (match[1] == null) continue;
 
-    Object.assign(menus, menuOptions);
+    menus.push(
+      match[1]
+        .trim()
+        .split(/\s+/)
+        .map((attr) => attr.split("="))
+        .reduce((acc, [key, value]) => {
+          acc[key as string] = value?.replace(/"/g, "") ?? "";
+          return acc;
+        },
+        {} as Record<string, string>,
+      ),
+    );
   }
 
   return menus;
 };
 
 /**
- * @param content 
+ * @param content
  * @returns {AiragaElement["audio"] | undefined}
  *
  * @description
- * This function takes in a string of HTML content and returns an object of audio properties. 
+ * This function takes in a string of HTML content and returns an object of audio properties.
  */
 const parseAudio = (content: string): AiragaElement["audio"] | undefined => {
-  const audioMatch = /<audio[^>]+src="([^"]+)"[^>]*>/i;
-  const match = audioMatch.exec(content);
+  const audioTag = /<audio[^>]+src="([^"]+)"[^>]*>/i;
+  const match = audioTag.exec(content);
   if (match) return { type: "audio", props: { src: match[1] } };
   return undefined;
 };
 
 /**
- * @param content 
+ * @param content
  * @returns {AiragaElement["img"] | undefined}
  *
  * @description
- * This function takes in a string of HTML content and returns an object of image properties. 
+ * This function takes in a string of HTML content and returns an object of image properties.
  */
-const parseImage = (content: string): AiragaElement['img'] | undefined => {
-  const imgMatch = /<img[^>]+src="([^"]+)"[^>]*>/i;
-  const match = imgMatch.exec(content);
+const parseImage = (content: string): AiragaElement["img"] | undefined => {
+  const imgTag = /<img[^>]+src="([^"]+)"[^>]*>/i;
+  const match = imgTag.exec(content);
   if (match) return { type: "img", props: { src: match[1] } };
   return undefined;
 };
 
 /**
- * @param content 
+ * @param content
  * @returns {Array<AiragaElement>}
  *
  * @description
  * This function takes in a string of HTML content and returns an array of scene elements.
  */
 export const parseScene = (content: string): Array<AiragaElement> => {
-  const sceneTags = /<scene[^>]*>([\s\S]*?)<\/scene>/gi;
+  const sceneTag = /<scene[^>]*>([\s\S]*?)<\/scene>/gi;
   const scenes: AiragaElement[] = [];
   let match: RegExpExecArray | null;
 
-  while ((match = sceneTags.exec(content)) !== null) {
+  while ((match = sceneTag.exec(content)) !== null) {
     const sceneContent = match[1]!.trim() || "";
-    const idMatch = /id="([^"]+)"/.exec(match[0]);
+    const idMatch = /id="([^"]+)"/.exec(/<scene([^>]*)>/i.exec(match[0])?.[1] ?? "");
     const id = idMatch ? idMatch[1] : undefined;
 
     const menu = parseMenu(sceneContent);
