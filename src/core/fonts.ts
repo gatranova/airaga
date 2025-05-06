@@ -3,7 +3,7 @@
  * @returns {Promise<{ css: string; url: string } | void>}
  *
  * @description
- * This module provides functions for fetching web fonts from Google Fonts.
+ * This function fetches web fonts from Google Fonts.
  * It returns the CSS code and the URL of the font files.
  */
 

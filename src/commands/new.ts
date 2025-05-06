@@ -13,7 +13,7 @@ import { error, log } from "console";
 import { existsSync, mkdirSync, writeFile, writeFileSync } from "fs";
 import { join } from "path";
 import { cwd, exit } from "process";
-import { Version } from "@/core/version.js";
+import { Version } from "@/constants/version.js";
 import { base64 } from "@/constants/base64.js";
 import dedent from "dedent";
 
@@ -82,7 +82,7 @@ export const newGame = async (gameName: string): Promise<void> => {
     `
       <scene>
         Welcome to Airaga!
-
+        <br />
         Airaga is an opinionated text game engine built with TypeScript.
         It is designed to simplify and accelerate the development of interactive fiction
         by providing a structured scene-based architecture.

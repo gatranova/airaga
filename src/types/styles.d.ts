@@ -10,6 +10,7 @@ type Subsets =
 
 export interface Fonts {
   adjustFontFallback?: boolean;
+  name: string;
   display: Display;
   fallback?: string[];
   preload?: boolean;

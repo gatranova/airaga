@@ -8,25 +8,22 @@ import type { AiragaElement } from "airaga";
  * This function takes in a string of HTML content and returns an object of menu options.
  */
 const parseMenu = (content: string): Array<Record<string, string>> => {
-  const menuTag = /<menu([^>]*)\/?>/gi;
+  const menuTag = /<menu\s+([^>]*)\/?>/gi;
+  const attrRegex = /(\w+)="([^"]*)"/g;
   const menus: Array<Record<string, string>> = [];
   let match: RegExpExecArray | null;
 
   while ((match = menuTag.exec(content)) !== null) {
-    if (match[1] == null) continue;
+    const attrs = match[1] ?? "";
+    const menu: Record<string, string> = {};
+    let attrMatch: RegExpExecArray | null;
 
-    menus.push(
-      match[1]
-        .trim()
-        .split(/\s+/)
-        .map((attr) => attr.split("="))
-        .reduce((acc, [key, value]) => {
-          acc[key as string] = value?.replace(/"/g, "") ?? "";
-          return acc;
-        },
-        {} as Record<string, string>,
-      ),
-    );
+    while ((attrMatch = attrRegex.exec(attrs)) !== null) {
+      const [, key, value] = attrMatch as unknown as [string, string, string];
+      menu[key as string] = value as string;
+    }
+
+    menus.push(menu);
   }
 
   return menus;
@@ -73,15 +70,21 @@ export const parseScene = (content: string): Array<AiragaElement> => {
   let match: RegExpExecArray | null;
 
   while ((match = sceneTag.exec(content)) !== null) {
-    const sceneContent = match[1]!.trim() || "";
+    const rawContent = match[1]!.trim();
     const idMatch = /id="([^"]+)"/.exec(/<scene([^>]*)>/i.exec(match[0])?.[1] ?? "");
     const id = idMatch ? idMatch[1] : undefined;
 
-    const menu = parseMenu(sceneContent);
-    const audio = parseAudio(sceneContent);
-    const img = parseImage(sceneContent);
+    const menu = parseMenu(rawContent);
+    const audio = parseAudio(rawContent);
+    const img = parseImage(rawContent);
 
-    scenes.push({ scene: sceneContent, id, menu, audio, img });
+    const cleaned = rawContent
+      .replace(/<menu[\s\S]*?\/?>/gi, "")
+      .replace(/<audio[\s\S]*?\/?>/gi, "")
+      .replace(/<img[\s\S]*?\/?>/gi, "")
+      .trim();
+
+    scenes.push({ scene: cleaned, id, menu, audio, img });
   }
 
   return scenes;
