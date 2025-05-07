@@ -1,10 +1,12 @@
 /**
- * @module core/fonts
+ * Fetch Google Fonts CSS and extract font file URLs.
+ *
+ * @param font - The font name (e.g., "Roboto")
+ * @param options - Font configuration options (display, weight, etc.)
  * @returns {Promise<{ css: string; url: string } | void>}
  *
  * @description
- * This function fetches web fonts from Google Fonts.
- * It returns the CSS code and the URL of the font files.
+ * An object containing the CSS and Google Fonts URL.
  */
 
 import { error, warn } from "console";

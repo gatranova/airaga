@@ -8,4 +8,5 @@
  * 1.0.0
  */
 
+export { Config } from "@/constants/config.js";
 import "@/commands/cli.js";

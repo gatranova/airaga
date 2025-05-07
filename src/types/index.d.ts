@@ -51,7 +51,7 @@ declare module "airaga" {
     /**
      * Unique identifier of the game (UUID v4).
      */
-    ifid: string | null;
+    ifid: string;
 
     /**
      * Name or title of the game.
@@ -95,6 +95,14 @@ declare module "airaga" {
      * Default: "start"
      */
     startScene?: string;
+
+    /**
+     * @returns {Fonts}
+     *
+     * @description
+     * This function loads web fonts from Google Fonts.
+     */
+    fonts: () => import("@/types/styles.d.ts").Fonts;
   }
 
   export interface AiragaElement {

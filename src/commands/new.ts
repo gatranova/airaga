@@ -35,7 +35,7 @@ export const newGame = async (gameName: string): Promise<void> => {
     ifid: null,
     name: gameName,
     description: "A new Airaga text game project.",
-    version: "1.0.0",
+    version: `"${Version}"`,
     author: "",
   };
 
@@ -96,13 +96,18 @@ export const newGame = async (gameName: string): Promise<void> => {
   writeFileSync(join(folder, "airaga.config.ts"), dedent(
     `
       import type { Config } from "airaga";
+      import { Plus_Jakarta_Sans } from "@airaga/fonts";
 
       export const config: Config = {
         ifid: ${null},
         name: "${init.name}",
         description: "${init.description}",
-        version: "${init.version}",
+        version: ${init.version},
         author: "Someone",
+        fonts: () => Plus_Jakarta_Sans({
+          subsets: ["latin"],
+          weight: ["400", "500", "600", "700"],
+        }),
       };
     `,
   ));
@@ -145,7 +150,7 @@ export const newGame = async (gameName: string): Promise<void> => {
 
       - **IFID**: <ifid>
       - **Description**: A new Airaga text game project.
-      - **Version**: 1.0.0
+      - **Version**: ${Version}
       - **Author**: [Your Name Here]
 
       ## 🏗 Project Structure
@@ -197,13 +202,18 @@ export const newGame = async (gameName: string): Promise<void> => {
 
       \`\`\`ts
       import type { Config } from "airaga";
+      import { Roboto } from "@airaga/fonts";
 
       export const config: Config = {
         ifid: "<ifid>",
         name: "New Text Game",
         description: "A new Airaga text game project.",
-        version: "1.0.0",
+        version: "${Version}",
         author: "",
+        fonts: () => Roboto({
+          subsets: ["latin"],
+          weight: ["400", "500", "600", "700"],
+        }),
       };
       \`\`\`
 

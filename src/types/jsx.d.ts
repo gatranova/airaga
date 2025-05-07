@@ -7,7 +7,7 @@
  * JSX types for Airaga.
  */
 
-import type { AiragaElement } from "airaga";
+import type { AiragaElement } from "@/types/index.js";
 
 declare global {
   namespace JSX {

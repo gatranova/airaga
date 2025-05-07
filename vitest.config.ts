@@ -8,6 +8,7 @@ export default defineConfig({
     alias: {
       "@": resolve(__dirname, "./src"),
       "@airaga/fonts": resolve(__dirname, "./types/fonts"),
+      "@airaga/items": resolve(__dirname, "./types/items"),
     }
   },
   test: {

@@ -1,6 +1,6 @@
 /**
  * @module commands/generate
- * @returns {string}
+ * @returns {string} The new IFID.
  *
  * @description
  * This module provides functions for creating a new Airaga game project.
@@ -18,10 +18,6 @@ export const generateUUIDv4 = (): string => {
   return uuidv4();
 };
 
-/**
- * @description
- * Read the config file and replace the IFID with a new one.
- */
 export const generateIFID = (): string => {
   const file = readFileSync("./airaga.config.ts", "utf-8");
   const uuid = generateUUIDv4();
