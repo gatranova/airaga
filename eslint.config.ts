@@ -11,10 +11,16 @@ export default [
       parserOptions: { project: "./tsconfig.json" },
     },
     plugins: { "@typescript-eslint": tseslint },
+    linterOptions: {
+      env: {
+        node: true,
+      },
+    },
     rules: {
       "@typescript-eslint/consistent-type-definitions": ["error", "interface"],
       "@typescript-eslint/explicit-function-return-type": "warn",
       "@typescript-eslint/explicit-module-boundary-types": "warn",
+      "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
       "@typescript-eslint/strict-boolean-expressions": "warn",
     },
   },

@@ -1,0 +1,17 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "module": "es2022",
+    "moduleResolution": "bundler",
+    "outDir": "./dist",
+    "target": "esnext",
+    "types": ["node"],
+    "paths": {
+      "@constants/*": ["constants/*"],
+      "@core/*": ["core/*"],
+      "@helpers/*": ["helpers/*"],
+      "@interfaces/*": ["interfaces/*"],
+    }
+  },
+}

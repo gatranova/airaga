@@ -1,19 +1,20 @@
-/* eslint-disable no-undef */
-
-import { defineConfig } from "vitest/config";
 import { resolve } from "path";
+import { defineConfig } from "vitest/config";
 
 export default defineConfig({
   resolve: {
     alias: {
       "@": resolve(__dirname, "./src"),
       "@airaga/fonts": resolve(__dirname, "./types/fonts"),
-      "@airaga/items": resolve(__dirname, "./types/items"),
-    }
+      "@core": resolve(__dirname, "packages/cli/core"),
+      "@helpers": resolve(__dirname, "packages/cli/helpers"),
+      "@constants": resolve(__dirname, "packages/cli/constants"),
+      "@interfaces": resolve(__dirname, "packages/cli/interfaces"),
+    },
   },
   test: {
     alias: {
-      "@/": new URL('./src/', import.meta.url).pathname,
+      "@/": new URL("./src/", import.meta.url).pathname,
     },
     coverage: {
       reporter: ["html", "text"],

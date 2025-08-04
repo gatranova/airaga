@@ -1,0 +1,13 @@
+{
+  "prettier.configPath": "./.prettierrc",
+  "tailwindCSS.lint.invalidConfigPath": "ignore",
+  "json.schemas": [
+    {
+      "fileMatch": ["bun.lock"],
+      "schema": {
+        "allowTrailingCommas": true
+      }
+    }
+  ],
+  "java.compile.nullAnalysis.mode": "disabled"
+}

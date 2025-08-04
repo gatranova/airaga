@@ -6,8 +6,7 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "lib": ["ESNext"],
-    "module": "Node18",
-    "moduleDetection": "force",
+    "module": "nodenext",
     "moduleResolution": "nodenext",
     "noFallthroughCasesInSwitch": true,
     "noPropertyAccessFromIndexSignature": false,
@@ -15,14 +14,12 @@
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "outDir": "dist",
-    "paths": {
-      "@/*": ["src/*"],
-    },
     "sourceMap": true,
     "strict": true,
     "skipLibCheck": true,
-    "target": "ES2020",
-    "verbatimModuleSyntax": true,
+    "paths": {
+      "airaga": ["packages/airaga/index.ts"]
+    }
   },
   "exclude": ["dist", "node_modules"],
   "include": ["./**/*.ts", "./**/*.d.ts"],
