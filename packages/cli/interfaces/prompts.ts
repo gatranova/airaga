@@ -18,6 +18,10 @@ export abstract class Prompts {
   public path!: PlatformPath;
   public process!: typeof import("node:process");
 
+  public context(ctx: Partial<Prompts>) {
+    Object.assign(this, ctx);
+  }
+
   public get folder(): string {
     return this.gameName === "." ? this.process.cwd() : this.path.join(this.process.cwd(), this.gameName);
   }

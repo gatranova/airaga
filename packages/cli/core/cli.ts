@@ -1,8 +1,11 @@
 import { Console } from "node:console";
 import { argv, stdin as input, stdout as output } from "node:process";
 import { createInterface } from "node:readline/promises";
-import { BaseCommands, Prompts } from "@interfaces/prompts";
-import { New } from "./new";
+import { New } from "@cli-core/new";
+import { BaseCommands } from "@cli-interfaces/prompts";
+import fs from "node:fs";
+import path from "node:path";
+import dedent from "dedent";
 
 export class Cli {
   private args = argv.slice(2);
@@ -19,6 +22,14 @@ export class Cli {
     this.process = process;
     this.baseCommands = "new";
     this.newProject = new New();
+
+    this.newProject.context({
+      console: this.console,
+      process: this.process,
+      fs,
+      path,
+      dedent,
+    });
   }
 
   public async init(): Promise<void> {
@@ -40,7 +51,7 @@ export class Cli {
   private async createNewProject(): Promise<void> {
     this.console.log("🌟 Welcome to Airaga! Let's create your text-based game.");
 
-    const name = (this.gameName ?? "") || (await this.askQuestion("📝 What is the name of your game?"));
+    const name = (this.gameName ?? "") || (await this.askQuestion("📝 What is the name of your game? "));
 
     if (!name) {
       this.console.error("❌ Game name is required.");

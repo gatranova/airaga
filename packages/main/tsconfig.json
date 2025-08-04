@@ -2,16 +2,15 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "module": "es2022",
-    "moduleResolution": "bundler",
-    "outDir": "./dist",
-    "target": "esnext",
+    "composite": true,
+    "outDir": "../../dist/main",
     "types": ["node"],
     "paths": {
-      "@constants/*": ["constants/*"],
-      "@core/*": ["core/*"],
-      "@helpers/*": ["helpers/*"],
-      "@interfaces/*": ["interfaces/*"],
+      "@main-constants/*": ["constants/*"],
+      "@main-core/*": ["core/*"],
+      "@main-helpers/*": ["helpers/*"],
+      "@main-interfaces/*": ["interfaces/*"]
     }
   },
+  "include": ["./**/*.ts"]
 }

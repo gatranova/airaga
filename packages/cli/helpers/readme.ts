@@ -1,5 +1,5 @@
-import { version } from "@constants/version";
-import { Prompts } from "@interfaces/prompts";
+import { version } from "@cli-constants/version";
+import { Prompts } from "@cli-interfaces/prompts";
 
 export class Readme extends Prompts {
   public write(): void {
@@ -7,7 +7,7 @@ export class Readme extends Prompts {
       `
         # Airaga New Game Project
 
-        Welcome to Airaga, a text-based adventure game built using [Airaga](https://github.com/a6iyyu/airaga) engine!
+        Welcome to Airaga, a text-based adventure game built using [Airaga](https://github.com/gatranova/airaga) engine!
 
         ## ✨ Overview
 
@@ -82,7 +82,7 @@ export class Readme extends Prompts {
 
         ## 📜 License
         
-        This project is licensed under the [MIT License](https://github.com/a6iyyu/airaga/blob/main/LICENSE).
+        This project is licensed under the [MIT License](https://github.com/gatranova/airaga/blob/main/LICENSE).
       `,
     ));
   }

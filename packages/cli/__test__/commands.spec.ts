@@ -4,8 +4,8 @@ import { join } from "path";
 import { cwd } from "process";
 import { setTimeout } from "timers";
 import { describe, expect, it, vi } from "vitest";
-import { New } from "@core/new";
-import { Test } from "@helpers/test";
+import { New } from "@cli-core/new";
+import { Test } from "@cli-helpers/test";
 
 /**
  * 🧪 Mocking `process.exit` to prevent the test runner from terminating.

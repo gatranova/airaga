@@ -1,29 +1,36 @@
 {
   "compilerOptions": {
-    "allowJs": true,
     "baseUrl": ".",
+    "composite": true,
     "declaration": true,
+    "emitDeclarationOnly": false,
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
     "lib": ["ESNext"],
-    "module": "nodenext",
-    "moduleResolution": "nodenext",
-    "noFallthroughCasesInSwitch": true,
-    "noPropertyAccessFromIndexSignature": false,
-    "noUncheckedIndexedAccess": true,
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
+    "module": "ES2022",
+    "moduleResolution": "node",
     "outDir": "dist",
-    "sourceMap": true,
     "strict": true,
     "skipLibCheck": true,
+    "target": "esnext",
     "paths": {
-      "airaga": ["packages/airaga/index.ts"]
-    }
+      "@cli-core/*": ["packages/cli/core/*"],
+      "@cli-constants/*": ["packages/cli/constants/*"],
+      "@cli-helpers/*": ["packages/cli/helpers/*"],
+      "@cli-interfaces/*": ["packages/cli/interfaces/*"],
+      "@main-core/*": ["packages/main/core/*"],
+      "@main-constants/*": ["packages/main/constants/*"],
+      "@main-helpers/*": ["packages/main/helpers/*"],
+      "@main-interfaces/*": ["packages/main/interfaces/*"]
+    },
   },
   "exclude": ["dist", "node_modules"],
-  "include": ["./**/*.ts", "./**/*.d.ts"],
-  "ts-node": {
-    "esm": true
+  "include": ["packages"],
+  "references": [
+    { "path": "./packages/cli" },
+    { "path": "./packages/main" },
+  ],
+  "tsc-alias": {
+    "resolveFullPaths": true,
+    "resolveFullExtension": ".js",
   }
 }

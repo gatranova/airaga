@@ -1,6 +1,5 @@
-// packages/cli/helpers/package-json.ts
-import { version } from "@constants/version";
-import { Prompts } from "@interfaces/prompts";
+import { version } from "@cli-constants/version";
+import { Prompts } from "@cli-interfaces/prompts";
 
 export class PackageJson extends Prompts {
   public write(): boolean {
@@ -20,8 +19,8 @@ export class PackageJson extends Prompts {
         },
         devDependencies: {
           airaga: `^${version}`,
-          "@types/node": "^18.11.18",
-          typescript: "^5.0.4",
+          "@types/node": "latest",
+          typescript: "latest",
         },
         license: "MIT",
         types: "airaga.config.ts",

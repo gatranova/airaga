@@ -1,8 +1,9 @@
-import { version } from "@constants/version";
-import { Readme } from "@helpers/readme";
-import { Config } from "@interfaces/configuration";
-import { Prompts } from "@interfaces/prompts";
-import { PackageJson } from "@helpers/package-json";
+import { version } from "@cli-constants/version";
+import { Readme } from "@cli-helpers/readme";
+import { Config } from "@cli-interfaces/config";
+import { Prompts } from "@cli-interfaces/prompts";
+import { PackageJson } from "@cli-helpers/package-json";
+import { assetsFolder } from "@cli-helpers/paths";
 
 export class New extends Prompts {
   private readme!: Readme;
@@ -47,13 +48,15 @@ export class New extends Prompts {
 
     this.fs.mkdirSync(this.path.join(this.folder, "public"), { recursive: true });
 
-    if (this.fs.existsSync(this.path.resolve("assets", "favicon.ico")) == null) {
+    const faviconPath = this.path.resolve(assetsFolder, "favicon.ico");
+
+    if (!this.fs.existsSync(faviconPath)) {
       this.console.error("❌ Default favicon.ico not found in assets/");
       this.process.exit(1);
     }
 
     try {
-      this.fs.copyFileSync(this.path.resolve("assets", "favicon.ico"), this.path.join(this.folder, "public", "favicon.ico"));
+      this.fs.copyFileSync(faviconPath, this.path.join(this.folder, "public", "favicon.ico"));
     } catch (err) {
       this.console.error(`❌ Failed to copy favicon: ${err}`);
       this.process.exit(1);
@@ -71,7 +74,6 @@ export class New extends Prompts {
     this.fs.writeFileSync(this.path.join(this.folder, "airaga.config.ts"), this.dedent(
       `
         import type { Config } from "airaga";
-        import { Plus_Jakarta_Sans } from "@airaga/fonts";
 
         export const config: Config = {
           ifid: ${null},
@@ -79,10 +81,6 @@ export class New extends Prompts {
           description: "${init.description}",
           version: ${init.version},
           author: "${init.author}",
-          fonts: () => Plus_Jakarta_Sans({
-            subsets: ["latin"],
-            weight: ["400", "500", "600", "700"],
-          }),
         };
       `
     ));
